@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Atividades</title>
+    <meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+  	<link rel="stylesheet" th:href="@{/css/table.css}" />
+  	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body center>
+<div class="wrapper">
+	<div>
+	<h1 class="destaque">Atividades</h1>
+	</div>
+	<div id="carouselExample" class="carousel slide">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active" data-slide-width="500">
+	      <div>
+		 	<h2>Adicionar Livro</h2>
+		    <form class="d-block w-100" th:action="@{/atividades/create}" th:object="${atividadeDTO}" method="post">
+				<input required maxlength="45" class="input-box" placeholder="atividade" type="text" id="atividade" name="atividade"><br>
+		        <input required maxlength="45" class="input-box" placeholder="responsavel" type="text" id="responsavel" name="responsavel"><br>
+		        <input required maxlength="45" class="input-box" placeholder="inicio" type="date" id="inicio" name="inicio"><br>
+		        <input required maxlength="45" class="input-box" placeholder="fim" type="date" id="fim" name="fim"><br>
+		        <input required maxlength="45" class="input-box" placeholder="dependencia" type="number" id="dependencia" name="dependencia"><br>
+		        <input required class="btn" type="submit" value="Adicionar">
+		    </form>
+		  </div>
+	    </div>
+    
+    <div class="carousel-item table-div" data-slide-width="1000" data-slide-height="300">
+		 <h2>Lista de Livros</h2>
+		    <table class="custom-table table-wrapper">
+				<thead class="custom-thead">
+		        <tr>
+		            <th>ID</th>
+		            <th>Atividade</th>
+		            <th>Responsável</th>
+		            <th>Início</th>
+		            <th>Fim</th>
+   		            <th>Dependencia</th>
+		            <th>Editar</th>
+		            <th>Deletar</th>
+		        </tr>
+		        </thead>
+		        
+		        <tbody class="custom-tbody">
+			        <tr th:each="atividade : ${atividades}" class="atividade-row">
+			            <td data-label="id" th:text="${atividade.id}"></td>
+			            <td data-label="nome" th:text="${atividade.nome}"></td>
+			            <td data-label="autor" th:text="${atividade.autor}"></td>
+			            <td data-label="editora" th:text="${atividade.editora}"></td>
+			            <td data-label="isbn" th:text="${atividade.isbn}"></td>
+			            <td>
+							<button class="edit-button btnf" th:data-id="${atividade.id}" th:href="@{/atividades/edit/{id}(id=${atividade.id})}">Editar</button>
+			            </td>
+			            <td>
+    						<button class="btnf delete-button" th:data-id="${atividade.id}">Deletar</button>
+			            </td>			            
+			        </tr>
+		        </tbody>
+		    </table> 
+	    </div>
+	  </div>
+	</div>
+	  	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+	  	</button>
+	  	<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+	  	</button>
+</div>
+    <script>
+    $(document).ready(function () {
+        $('.delete-button').click(function () {
+            var livroId = $(this).data('id');
+            window.location.href = '/atividades/delete/' + livroId;
+        });
+    });
+</script>
+     <script>
+    $(document).ready(function() {
+        function adjustWrapperWidth(slideWidth) {
+            $('.wrapper').css('width', slideWidth);
+        }
+        function setWrapperSize() {
+            var activeSlide = $('.carousel-item.active');
+            var activeSlideWidth = activeSlide.data('slide-width');
+            adjustWrapperWidth(activeSlideWidth);
+        }
+        $(window).on('load', function() {
+            setWrapperSize();
+        });
+        $('#carouselExample').on('slide.bs.carousel', function(event) {
+            var nextSlide = $(event.relatedTarget);
+            var nextSlideWidth = nextSlide.data('slide-width');
+            adjustWrapperWidth(nextSlideWidth);
+        });
+    });
+</script>
+ <script th:inline="javascript">
+    	 var livros = /*[[${atividades}]]*/;
+   	</script>
+	<script>
+	    $(document).ready(function () {
+			$('.edit-button').click(function () {
+            var livroId = $(this).data('id');
+            window.location.href = '/livros/edit/' + livroId;
+        });
+	  });
+	</script>
+    <script th:inline="javascript">
+    	 var atividades = /*[[${atividades}]]*/
+   	</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

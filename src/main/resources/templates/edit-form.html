@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Edit Livro</title>
+    <title>Edit Atividade</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
@@ -11,16 +11,17 @@
 
 <body>
     <div class="wrapper">
-        <h1 class="destaque">Editar Livro</h1>
+        <h1 class="destaque">Editar Atividade</h1>
         <div>
-            <form th:action="@{/livros/edit/{id}(id=${livroDTO.id})}" th:object="${livroDTO}" method="post">
-                <input type="hidden" th:field="*{id}" />
-                <input required maxlength="45" class="input-box" placeholder="nome" type="text" th:field="*{nome}" /><br>              
-                <input required maxlength="45" class="input-box" placeholder="autor" type="text" th:field="*{autor}" /><br> 
-                <input required maxlength="45" class="input-box" placeholder="editora" type="text" th:field="*{editora}" /><br>
-                <input required maxlength="45" class="input-box" placeholder="isbn" type="number" th:field="*{isbn}" /><br>
+            <form th:action="@{/atividades/edit/{id}(id=${atividadeDTO.id})}" th:object="${atividadeDTO}" method="post">
+        
+                <input required maxlength="45" class="input-box" placeholder="atividade" th:field="*{atividade}" type="text" id="atividade" name="atividade"><br>
+		        <input required maxlength="45" class="input-box" placeholder="responsavel" th:field="*{responsavel}" type="text" id="responsavel" name="responsavel"><br>
+		        <input required maxlength="45" class="input-box" placeholder="inicio" th:field="*{inicio}" type="date" id="inicio" name="inicio"><br>
+		        <input required maxlength="45" class="input-box" placeholder="fim" th:field="*{fim}" type="date" id="fim" name="fim"><br>
+		        <input required maxlength="45" class="input-box" placeholder="dependencia" th:field="*{dependencia}" type="number" id="dependencia" name="dependencia"><br>
                 <button class="btn" type="submit">Salvar</button>
-                <a class="cancel-button" href="/livros">Cancelar</a>
+                <a class="cancel-button" href="/atividades">Cancelar</a>
             </form>
         </div>
     </div>

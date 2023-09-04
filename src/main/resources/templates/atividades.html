@@ -20,7 +20,7 @@
 	  <div class="carousel-inner">
 	    <div class="carousel-item active" data-slide-width="500">
 	      <div>
-		 	<h2>Adicionar Livro</h2>
+		 	<h2>Adicionar Atividade</h2>
 		    <form class="d-block w-100" th:action="@{/atividades/create}" th:object="${atividadeDTO}" method="post">
 				<input required maxlength="45" class="input-box" placeholder="atividade" type="text" id="atividade" name="atividade"><br>
 		        <input required maxlength="45" class="input-box" placeholder="responsavel" type="text" id="responsavel" name="responsavel"><br>
@@ -32,8 +32,8 @@
 		  </div>
 	    </div>
     
-    <div class="carousel-item table-div" data-slide-width="1000" data-slide-height="300">
-		 <h2>Lista de Livros</h2>
+    <div class="carousel-item table-div" data-slide-width="1170" data-slide-height="300">
+		 <h2>Lista de Atividades</h2>
 		    <table class="custom-table table-wrapper">
 				<thead class="custom-thead">
 		        <tr>
@@ -51,10 +51,12 @@
 		        <tbody class="custom-tbody">
 			        <tr th:each="atividade : ${atividades}" class="atividade-row">
 			            <td data-label="id" th:text="${atividade.id}"></td>
-			            <td data-label="nome" th:text="${atividade.nome}"></td>
-			            <td data-label="autor" th:text="${atividade.autor}"></td>
-			            <td data-label="editora" th:text="${atividade.editora}"></td>
-			            <td data-label="isbn" th:text="${atividade.isbn}"></td>
+			            <td data-label="nome" th:text="${atividade.atividade}"></td>
+			            <td data-label="autor" th:text="${atividade.dependencia}"></td>
+			            <td data-label="editora" th:text="${atividade.fim}"></td>
+			            <td data-label="isbn" th:text="${atividade.inicio}"></td>
+			        	<td data-label="isbn" th:text="${atividade.responsavel}"></td>
+
 			            <td>
 							<button class="edit-button btnf" th:data-id="${atividade.id}" th:href="@{/atividades/edit/{id}(id=${atividade.id})}">Editar</button>
 			            </td>
@@ -110,8 +112,8 @@
 	<script>
 	    $(document).ready(function () {
 			$('.edit-button').click(function () {
-            var livroId = $(this).data('id');
-            window.location.href = '/livros/edit/' + livroId;
+            var atividadeId = $(this).data('id');
+            window.location.href = '/atividades/edit/' + atividadeId;
         });
 	  });
 	</script>
